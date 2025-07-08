@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:42:05 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/08 16:34:40 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:00:03 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void *init_routine(void *ptr)
 	philo = (t_philo *)ptr;
 	if (philo->id % 2 == 0)
 		ft_usleep(1);
-	while (!dead_loop(philo))
+	while (!ifdead(philo))
 	{
 		eat(philo);
-		dream(philo);
+		zzz(philo);
 		think(philo);
 	}
 	return (ptr);

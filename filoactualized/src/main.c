@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:41:19 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/08 17:40:02 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:09:20 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	init_menu(t_philo *philo, pthread_mutex_t *forks, char **argv)
 		i++;
 	}
 	init_philos(philo, forks, &program);
+	thread_maker(&program, forks);
 	destroyer(NULL, &program, forks);
 }
 

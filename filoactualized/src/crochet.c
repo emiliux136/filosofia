@@ -2,8 +2,8 @@
 
 int thread_maker(t_program *program, pthread_mutex_t *forks)
 {
-	pthread_t	observer;
-	int			i;
+	// pthread_t	observer = 0;
+	int			i = 0;
 	// if (pthread_create(&observer, NULL, &monitor, program->philos) != 0)
 	// 	destroyer(W_THR, program, forks);
 	// /* a la funcion pthread_create, tengo que pasarle otra función 
@@ -12,13 +12,13 @@ int thread_maker(t_program *program, pthread_mutex_t *forks)
 	while (i < program->philos[0].num_philos)
 	{
 		if (pthread_create(&program->philos[i].thread, NULL, &init_routine,
-				&program->philos[i] != TRUE))
+				&program->philos[i]) != 0)
 			destroyer(W_THR, program, forks);
 		i++;
 	}
 	i = 0;
-	if (pthread_join(observer, NULL) != 0)
-		destroyer(W_JTHR, program, forks);
+	// if (pthread_join(observer, NULL) != 0)
+	// 	destroyer(W_JTHR, program, forks);
 	while (i < program->philos[0].num_philos)
 	{
 		if (pthread_join(program->philos[i].thread, NULL) != 0)
