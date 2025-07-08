@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:42:05 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/02 16:07:20 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:34:40 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,20 @@ void	init_program(t_program *program, t_philo *philos)
 	pthread_mutex_init(&program->dead_lock, NULL);
 	pthread_mutex_init(&program->write_lock, NULL);
 	pthread_mutex_init(&program->meal_lock, NULL);
+}
+
+void *init_routine(void *ptr)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)ptr;
+	if (philo->id % 2 == 0)
+		ft_usleep(1);
+	while (!dead_loop(philo))
+	{
+		eat(philo);
+		dream(philo);
+		think(philo);
+	}
+	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:41:19 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/08 12:49:49 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:40:02 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ int	check_args(char **argv)
 		error += ft_error(W_TIME_SLEEP, 1, 2);
 	if (argv[5] && (ft_atoi(argv[5]) < 0 || ft_aredigit(argv[5]) == FALSE))
 		error += ft_error(W_NBR_EAT, 1, 2);
-	printf (B_RED "SOMETHING WENT WRONG! THERE ARE %d ERRORS\n" RS, error);
+	if (error > 0)
+		printf (B_RED "SOMETHING WENT WRONG! THERE ARE %d ERRORS\n" RS, error);
 	return (error);
 }
 
 void	init_menu(t_philo *philo, pthread_mutex_t *forks, char **argv)
 {
-	int	i;
-	t_program		program;
+	int			i;
+	t_program	program;
 
 	i = 0;
 	init_program(&program, philo);
@@ -52,6 +53,7 @@ void	init_menu(t_philo *philo, pthread_mutex_t *forks, char **argv)
 		i++;
 	}
 	init_philos(philo, forks, &program);
+	destroyer(NULL, &program, forks);
 }
 
 int	main(int argc, char **argv)

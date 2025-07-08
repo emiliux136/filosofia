@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:58:50 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/02 16:40:24 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/08 13:24:26 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,16 @@ size_t	current_time(void)
 	if (gettimeofday(&t, NULL) == -1)
 		ft_error(W_TIME, 1, 2);
 	return (t.tv_sec * 1000 + t.tv_usec / 1000);
+}
+
+int	ifdead(t_philo *philo)
+{
+	pthread_mutex_lock(philo->dead_lock);
+	if (*philo->dead == 1)
+		{
+			pthread_mutex_unlock(philo->dead_lock);
+			return (FALSE);
+		}
+	pthread_mutex_unlock(philo->dead_lock);
+	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:06:55 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/08 12:50:58 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:46:21 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define W_NBR_EAT RED "Invalid number of times each philosopher must eat\n" RS
 # define W_TIME RED "Problems with 'gettimeofday' funtion\n" RS
 # define W_THR RED "Thread creation error\n" RS
+# define W_JTHR RED "Thread join error\n" RS
 
 typedef struct s_philo
 {
@@ -70,27 +71,34 @@ typedef struct s_program
 int			main(int argc, char **argv);
 int			check_args(char **argv);
 void		init_menu(t_philo *philo, pthread_mutex_t *forks, char **argv);
-void		init_philos(t_philo *philo, pthread_mutex_t *forks,
-				t_program *program);
 
 // START
 
 void		init_program(t_program *program, t_philo *philos);
 void		init_forks(pthread_mutex_t *forks, char **argv);
-
+void 		*init_routine(void *ptr);
+void		init_philos(t_philo *philo, pthread_mutex_t *forks,
+				t_program *program);
+				
 // UTILS
 
 int			ft_atoi(char *str);
 int			ft_aredigit(char *c);
 int			ft_error(char *str, int exit, int fd);
 size_t		current_time(void);
+int			ifdead(t_philo *philo);
 
 // CROCHET
 
 int			thread_maker(t_program *program, pthread_mutex_t *forks);
 void		destroyer(char *str, t_program *program, pthread_mutex_t *forks);
+void		ft_print(char *str, t_philo *philo, int id);
 
 // ROUTINE
 
+void		eat(t_philo *philo);
+int			ft_usleep(size_t milis);
+void		zzz(t_philo *philo);
+void		think(t_philo *philo);
 
 #endif
