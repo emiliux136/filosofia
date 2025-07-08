@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:58:50 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/01 15:05:02 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:40:24 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_aredigit(char *c)
 	{
 		if (c[i] < '0' || c[i] > '9')
 			return (FALSE);
-	i++;
+		i++;
 	}
 	return (TRUE);
 }
@@ -60,5 +60,14 @@ int	ft_error(char *str, int exit, int fd)
 		write(fd, &str[i], 1);
 		i++;
 	}
-	return(exit);
+	return (exit);
+}
+
+size_t	current_time(void)
+{
+	struct timeval	t;
+
+	if (gettimeofday(&t, NULL) == -1)
+		ft_error(W_TIME, 1, 2);
+	return (t.tv_sec * 1000 + t.tv_usec / 1000);
 }

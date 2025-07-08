@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:06:55 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/01 16:37:29 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/08 12:50:58 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,19 @@
 # define TRUE 0
 # define FALSE 1
 
-# define W_ARG "Wrong arguments, it should be 5 or 6 values.\n"
-# define W_MALLOC "Malloc error\n"
-# define W_PHILO_NBR "Invalid philosophers number\n"
-# define W_TIME_DIE "Invalid time to die\n"
-# define W_TIME_EAT "Invalid time to eat\n"
-# define W_TIME_SLEEP "Invalid time to sleep\n"
-# define W_NBR_EAT "Invalid number of times each philosopher must eat\n"
+# define B_RED "\033[1;31m"
+# define RED "\033[0;31m"
+# define RS "\033[0m"
+
+# define W_ARG RED"Wrong arguments, it should be 5 or 6 values.\n" RS
+# define W_MALLOC RED"Malloc error\n" RS
+# define W_PHILO_NBR RED"Invalid philosophers number\n" RS
+# define W_TIME_DIE RED"Invalid time to die \U0001f600 \n" RS
+# define W_TIME_EAT RED"Invalid time to eat\n" RS
+# define W_TIME_SLEEP RED"Invalid time to sleep\n" RS
+# define W_NBR_EAT RED "Invalid number of times each philosopher must eat\n" RS
+# define W_TIME RED "Problems with 'gettimeofday' funtion\n" RS
+# define W_THR RED "Thread creation error\n" RS
 
 typedef struct s_philo
 {
@@ -57,15 +63,34 @@ typedef struct s_program
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
 	t_philo			*philos;
-} 	t_program;
+}	t_program;
+
+// MAIN
 
 int			main(int argc, char **argv);
 int			check_args(char **argv);
+void		init_menu(t_philo *philo, pthread_mutex_t *forks, char **argv);
+void		init_philos(t_philo *philo, pthread_mutex_t *forks,
+				t_program *program);
+
+// START
+
+void		init_program(t_program *program, t_philo *philos);
+void		init_forks(pthread_mutex_t *forks, char **argv);
 
 // UTILS
 
 int			ft_atoi(char *str);
 int			ft_aredigit(char *c);
 int			ft_error(char *str, int exit, int fd);
+size_t		current_time(void);
+
+// CROCHET
+
+int			thread_maker(t_program *program, pthread_mutex_t *forks);
+void		destroyer(char *str, t_program *program, pthread_mutex_t *forks);
+
+// ROUTINE
+
 
 #endif
