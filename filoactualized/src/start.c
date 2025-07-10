@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:42:05 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/08 18:00:03 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:50:49 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	init_program(t_program *program, t_philo *philos)
 	pthread_mutex_init(&program->meal_lock, NULL);
 }
 
-void *init_routine(void *ptr)
+void	*init_routine(void *ptr)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
 	if (philo->id % 2 == 0)

@@ -6,7 +6,7 @@
 #    By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 15:58:40 by emilgarc          #+#    #+#              #
-#    Updated: 2025/07/08 12:52:05 by emilgarc         ###   ########.fr        #
+#    Updated: 2025/07/10 16:08:36 by emilgarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRC = 	main.c\
 		utils.c\
 		start.c\
 		crochet.c\
-		routine.c
+		routine.c\
+		instructor.c
 
 HEADER = ./src/philo.h
 

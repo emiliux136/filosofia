@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:58:50 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/08 13:24:26 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:59:44 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ int	ft_aredigit(char *c)
 	while (c[i] != '\0')
 	{
 		if (c[i] < '0' || c[i] > '9')
-			return (FALSE);
+			return (TRUE);
 		i++;
 	}
-	return (TRUE);
+	return (FALSE);
 }
 
 int	ft_error(char *str, int exit, int fd)
@@ -76,10 +76,10 @@ int	ifdead(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
 	if (*philo->dead == 1)
-		{
-			pthread_mutex_unlock(philo->dead_lock);
-			return (FALSE);
-		}
+	{
+		pthread_mutex_unlock(philo->dead_lock);
+		return (TRUE);
+	}
 	pthread_mutex_unlock(philo->dead_lock);
-	return (TRUE);
+	return (FALSE);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 16:53:06 by emilgarc          #+#    #+#             */
+/*   Updated: 2025/07/10 17:36:36 by emilgarc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	ft_usleep(size_t milis)
@@ -7,7 +19,7 @@ int	ft_usleep(size_t milis)
 	start = current_time();
 	while (current_time() - start < milis)
 		usleep(500);
-	return (TRUE);
+	return (0);
 }
 
 void	eat(t_philo *philo)
@@ -25,7 +37,7 @@ void	eat(t_philo *philo)
 	philo->eating = 1;
 	ft_print("is eating", philo, philo->id);
 	pthread_mutex_lock(philo->meal_lock);
-	philo->last_meal =  current_time();
+	philo->last_meal = current_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->meal_lock);
 	ft_usleep(philo->timetoeat);

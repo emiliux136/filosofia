@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:41:19 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/08 18:09:20 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:00:03 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ int	check_args(char **argv)
 	int	error;
 
 	error = 0;
-	if (ft_atoi(argv[1]) <= 0 || ft_aredigit(argv[1]) == FALSE)
-		error += ft_error(W_PHILO_NBR, 1, 2);
-	if (ft_atoi(argv[2]) <= 0 || ft_aredigit(argv[2]) == FALSE)
-		error += ft_error(W_TIME_DIE, 1, 2);
-	if (ft_atoi(argv[3]) <= 0 || ft_aredigit(argv[3]) == FALSE)
-		error += ft_error(W_TIME_EAT, 1, 2);
-	if (ft_atoi(argv[4]) <= 0 || ft_aredigit(argv[4]) == FALSE)
-		error += ft_error(W_TIME_SLEEP, 1, 2);
-	if (argv[5] && (ft_atoi(argv[5]) < 0 || ft_aredigit(argv[5]) == FALSE))
-		error += ft_error(W_NBR_EAT, 1, 2);
+	if (ft_atoi(argv[1]) <= 0 || ft_aredigit(argv[1]) == TRUE)
+		error += ft_error(RED W_PHILO_NBR RS, 1, 2);
+	if (ft_atoi(argv[2]) <= 0 || ft_aredigit(argv[2]) == TRUE)
+		error += ft_error(RED W_TIME_DIE RS, 1, 2);
+	if (ft_atoi(argv[3]) <= 0 || ft_aredigit(argv[3]) == TRUE)
+		error += ft_error(RED W_TIME_EAT RS, 1, 2);
+	if (ft_atoi(argv[4]) <= 0 || ft_aredigit(argv[4]) == TRUE)
+		error += ft_error(RED W_TIME_SLEEP RS, 1, 2);
+	if (argv[5] && (ft_atoi(argv[5]) < 0 || ft_aredigit(argv[5]) == TRUE))
+		error += ft_error(RED W_NBR_EAT RS, 1, 2);
 	if (error > 0)
 		printf (B_RED "SOMETHING WENT WRONG! THERE ARE %d ERRORS\n" RS, error);
 	return (error);
@@ -55,6 +55,8 @@ void	init_menu(t_philo *philo, pthread_mutex_t *forks, char **argv)
 	init_philos(philo, forks, &program);
 	thread_maker(&program, forks);
 	destroyer(NULL, &program, forks);
+	free(philo);
+	free(forks);
 }
 
 int	main(int argc, char **argv)
@@ -63,8 +65,8 @@ int	main(int argc, char **argv)
 	pthread_mutex_t	*forks;
 
 	if (argc != 5 && argc != 6)
-		return (ft_error(W_ARG, 1, 2));
-	if (check_args(argv) != TRUE)
+		return (ft_error(RED W_ARG RS, 1, 2));
+	if (check_args(argv) != 0)
 		return (1);
 	philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
 	if (!philo)
@@ -76,7 +78,5 @@ int	main(int argc, char **argv)
 		return (ft_error(W_MALLOC, 1, 2));
 	}
 	init_menu(philo, forks, argv);
-	free(philo);
-	free(forks);
 	return (0);
 }
