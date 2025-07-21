@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:55:22 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/10 17:33:08 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:46:04 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	thread_maker(t_program *program, pthread_mutex_t *forks)
 
 	observer = 0;
 	i = 0;
-	if (pthread_create(&observer, NULL, &monitor, program->philos) != 0)
-		destroyer(W_THR, program, forks);
 	while (i < program->philos[0].num_philos)
 	{
 		if (pthread_create(&program->philos[i].thread, NULL, &init_routine,
@@ -28,6 +26,8 @@ int	thread_maker(t_program *program, pthread_mutex_t *forks)
 			destroyer(W_THR, program, forks);
 		i++;
 	}
+	if (pthread_create(&observer, NULL, &monitor, program->philos) != 0)
+		destroyer(W_THR, program, forks);
 	i = 0;
 	if (pthread_join(observer, NULL) != 0)
 		destroyer(W_JTHR, program, forks);

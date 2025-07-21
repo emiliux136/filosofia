@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:04:05 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/10 18:06:32 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:45:31 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ void	*monitor(void *ptr)
 	philos = (t_philo *)ptr;
 	while (1)
 	{
+		ft_usleep(1000);
 		if (monitor_dead_checker(philos) == 1)
 			break ;
 		if (check_all_ate(philos) == 1)
 			break ;
-			
 	}
 	return (ptr);
 }

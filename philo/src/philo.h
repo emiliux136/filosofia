@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:06:55 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/10 17:31:02 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/21 16:54:05 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 # define B_RED "\033[1;31m"
 # define RED "\033[0;31m"
 # define RS "\033[0m"
+# define MGT "\033[0;35m"
+# define B_MGT "\033[1;35m"
+# define BLU "\033[0;34m"
+# define GRE "\033[0;32m"
+# define YLW "\033[0;33m"
 
 # define W_ARG "Wrong arguments, it should be 5 or 6 values.\n"
 # define W_MALLOC "Malloc error\n"
@@ -104,6 +109,7 @@ void		*monitor(void *ptr);
 // ROUTINE
 
 void		eat(t_philo *philo);
+void		fork_order(t_philo *philo);
 int			ft_usleep(size_t milis);
 void		zzz(t_philo *philo);
 void		think(t_philo *philo);
