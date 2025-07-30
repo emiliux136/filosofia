@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:53:06 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/21 16:54:38 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:27:44 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	fork_order(t_philo *philo)
 	}
 	else
 	{
+		usleep(1000);
 		pthread_mutex_lock(philo->r_fork);
 		ft_print(MGT "has taken a fork" RS, philo, philo->id);
 		pthread_mutex_lock(philo->l_fork);
@@ -50,17 +51,23 @@ void	eat(t_philo *philo)
 		pthread_mutex_unlock(philo->r_fork);
 		return ;
 	}
-	fork_order(philo);
-	philo->eating = 1;
-	ft_print(YLW "is eating" RS, philo, philo->id);
-	pthread_mutex_lock(philo->meal_lock);
-	philo->last_meal = current_time();
-	philo->meals_eaten++;
-	pthread_mutex_unlock(philo->meal_lock);
-	usleep(philo->timetoeat);
-	philo->eating = 0;
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
+	   fork_order(philo);
+	   pthread_mutex_lock(philo->meal_lock);
+	   philo->last_meal = current_time();
+	   philo->eating = 1;
+	   ft_print(YLW "is eating" RS, philo, philo->id);
+	   philo->meals_eaten++;
+	   pthread_mutex_unlock(philo->meal_lock);
+	   size_t start = current_time();
+	   while (current_time() - start < philo->timetoeat)
+	   {
+			   if (ifdead(philo))
+					   break;
+			   usleep(500);
+	   }
+	   philo->eating = 0;
+	   pthread_mutex_unlock(philo->l_fork);
+	   pthread_mutex_unlock(philo->r_fork);
 }
 
 void	zzz(t_philo *philo)

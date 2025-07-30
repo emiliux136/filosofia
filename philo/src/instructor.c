@@ -6,7 +6,7 @@
 /*   By: emilgarc <emilgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:04:05 by emilgarc          #+#    #+#             */
-/*   Updated: 2025/07/21 14:45:31 by emilgarc         ###   ########.fr       */
+/*   Updated: 2025/07/22 13:18:51 by emilgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 int	philosopher_dead(t_philo *philo, size_t time_to_die)
 {
 	pthread_mutex_lock(philo->meal_lock);
-	if (current_time() - philo->last_meal >= time_to_die
-		&& philo->eating == 0)
+	if (current_time() - philo->last_meal >= time_to_die)
 	{
 		pthread_mutex_unlock(philo->meal_lock);
 		return (1);
@@ -53,7 +52,7 @@ int	check_all_ate(t_philo *philos)
 	i = 0;
 	finished_eating = 0;
 	if (philos[0].howmanymeals == -1)
-		return (0);
+		return (FALSE);
 	while (i < philos[0].num_philos)
 	{
 		pthread_mutex_lock(philos[i].meal_lock);
@@ -67,9 +66,9 @@ int	check_all_ate(t_philo *philos)
 		pthread_mutex_lock(philos[0].dead_lock);
 		*philos[0].dead = 1;
 		pthread_mutex_unlock(philos[0].dead_lock);
-		return (1);
+		return (TRUE);
 	}
-	return (0);
+	return (FALSE);
 }
 
 void	*monitor(void *ptr)
@@ -79,7 +78,7 @@ void	*monitor(void *ptr)
 	philos = (t_philo *)ptr;
 	while (1)
 	{
-		ft_usleep(1000);
+		ft_usleep(500);
 		if (monitor_dead_checker(philos) == 1)
 			break ;
 		if (check_all_ate(philos) == 1)
